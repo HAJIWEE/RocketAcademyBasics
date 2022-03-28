@@ -17,8 +17,8 @@ var paintMain = function (costOfPaint, numOfRoom, numOfCoat) {
 
 var randomDiceMain = function () {
   // Attempt the Random Dice Rolls exercise from the Intro to Logic and Control Flow module below with randomDiceMain as the main function.
-  var randomDecimal = Math.random() * 6;
-  var randomDice = Math.floor(randomDecimal) + 1;
+  var randomDecimal = Math.random() * 6; //0-0.9999... * 6
+  var randomDice = Math.floor(randomDecimal) + 1; // example: 5.8989 -> 5 then plus 1
   var myOutputValue = `Dice rolled: ${randomDice}`;
   return myOutputValue;
 };
@@ -27,6 +27,7 @@ var secretPhraseMain = function (input) {
   // Attempt the Secret Phrase exercise from the If, Else, Else If module below with secretPhraseMain as the main function.
   var myOutputValue = "Wrong code, you spy";
   if (input == "Bunker and Badasses") {
+    //check if input is same as inside ""
     myOutputValue = "Hello fellow person of culture";
   } else if (input == "Wonderlands") {
     myOutputValue = "close but no cigar";
