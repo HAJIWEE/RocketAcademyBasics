@@ -20,6 +20,7 @@ var main = function (input) {
   }
 
   if (mode == true) {
+    // check for reverse mode
     if (input == comChoice) {
       //check draw conditions
       myOutputValue = `ITS A DRAW! </br>input scissors, paper or stone to continue. </br>You won: ${userWin}</br>Computer won: ${comWin}</br>Draws : ${draws}`;
