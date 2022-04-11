@@ -1,3 +1,4 @@
+//project 1: Scissors paper stone
 var userWin = 0; //number of time user win
 var comWin = 0; //number of time computer win
 var draws = 0; //number of draws
