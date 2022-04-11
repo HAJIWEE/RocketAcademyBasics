@@ -6,10 +6,13 @@ var rollDice = function () {
 
 //generate each roll collective value
 var playerValue = function (choice, rolls) {
-  var sequence = choice.split(" ");
+  //"2 1 3" <- choice, rolls = [5, 6, 1]
+  var sequence = choice.split(" "); //spilt choice string into list choice -> [2,1,3]
   var sum = ""; //initialise sum as a string so we can concatenate
   for (var b = 0; b < rolls.length; b += 1) {
-    sum = sum + rolls[sequence[b] - 1]; //concatenating the str
+    //b = 0, 1,2
+    //if sum is integer or number 6 + 5 + 1 = 12. if sum is str '6'+'5'+'1' = '651'
+    sum = sum + rolls[sequence[b] - 1]; //concatenating the str -> 651
   }
   return parseInt(sum); //pass back as integer so we can do comparison
 };
@@ -19,7 +22,7 @@ var numPlayer = 2; //initialise minimum number of player as 2
 var numDice = 2; //initialise minimum number of dice as 2
 var mode = 4; //initialise initial mode
 var rounds = 1; //initialise minimum number of rounds per game as 1
-var rolls = []; //storage for all players' rolls
+var rolls = []; //storage for all players' all rolls --> [[player1rolls],[player2rolls], [3,4,5]]
 var playerResults = []; //storage for all players' result
 
 var main = function (input) {
@@ -31,7 +34,10 @@ var main = function (input) {
     mode = 5;
   } else if (mode == 5) {
     numPlayer = input;
-    myOutputValue = `OK. ${numPlayer} of players selected.</br></br>
+    for (var i = 0; i < input; i += 1) {
+      playerResults.push(0); //if input = 3 playerResult =[0,0,0]
+    }
+    myOutputValue = `OK. ${numPlayer} players selected.</br></br>
     Enter number of rounds to play.`;
     mode = 6;
   } else if (mode == 6) {
@@ -51,7 +57,7 @@ var main = function (input) {
   //Start game
   else if (mode == 1) {
     //individual player's dice rolls
-    var roll = [];
+    var roll = []; //individual players' every row
     //random roll for each dice up to selected number of dice
     for (var i = 0; i < numDice; i += 1) {
       roll.push(rollDice());
@@ -67,13 +73,13 @@ var main = function (input) {
     var sum = playerValue(input, rolls[playerNo]);
     myOutputValue = `Player ${playerNo + 1}.</br>
     Your number is ${sum}`;
+    playerResults[playerNo] = playerResults[playerNo] + sum; //playerResult[0](0) = playerResult[0](0)  + sum
+    playerNo++;
     if (playerNo != numPlayer) {
       myOutputValue =
-        myOutputValue + `</br>It is now Player ${playerNo + 2}'s turn`;
+        myOutputValue + `</br>It is now Player ${playerNo + 1}'s turn`;
     }
     //saving each players' dice roll sum into result
-    playerResults[playerNo] = playerResults[playerNo] + sum;
-    playerNo++;
     mode = 1;
   } else if (mode == 3) {
     //initializing winning variables
@@ -118,12 +124,12 @@ var main = function (input) {
 
   //reseting the game when all rounds are over
   if (rounds == 0) {
-    mode = 4;
+    mode = 4; //start new game
     rounds = 1;
   }
 
   //moving the game into the result page when all players have rolled and chose.
-  if (playerNo > numPlayer) {
+  if (playerNo == numPlayer) {
     mode = 3;
   }
   return myOutputValue;
