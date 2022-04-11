@@ -1,3 +1,4 @@
+//For submission
 //function to generate dice roll
 var rollDice = function () {
   var dice = Math.floor(Math.random() * 6) + 1;
