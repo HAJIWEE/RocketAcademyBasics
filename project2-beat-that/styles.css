@@ -13,7 +13,7 @@ body {
   margin-left: 30px;
   margin-right: 30px;
   background-image: url("https://images.pexels.com/photos/5870534/pexels-photo-5870534.jpeg?auto=compress&cs=tinysrgb&w=1600");
-  background-size: 700px;
+  background-size: contain;
   background-color: #e0e0e0;
 }
 
