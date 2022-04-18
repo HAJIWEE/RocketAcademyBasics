@@ -12,7 +12,22 @@ body {
   font-family: sans-serif;
   margin-left: 30px;
   margin-right: 30px;
-  background-color: #e0e0e0;
+  background-color: #044116;
+}
+
+ul li.comleft {
+  list-style-type: none;
+  padding: 0;
+  overflow: hidden;
+  float: left;
+  font-size: 30px;
+}
+
+ul li.com {
+  font-size: 30px;
+  list-style-type: none;
+  float: right;
+  margin-right: 50px 
 }
 
 nav {
@@ -54,15 +69,26 @@ nav ul li a {
 
 #header {
   text-align: center;
+  color: rgb(255, 255, 255);
 }
 
 .container {
-  background-color: #ffffff;
+  background-color:transparent;
+  border-color: white;
+  border-style: solid;
+  border-width: thin
   margin: 40px auto;
-  max-width: 800px;
   padding: 38px 31px;
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  align-items: auto;
+  display: grid;
+}
+
+.buttons-div {
+  margin: 0;
+  position: absolute;
+  left: 45%;
 }
 
 input {
@@ -81,10 +107,16 @@ button {
 }
 
 .output-div {
-  background-color: lightgrey;
-  margin: 20px auto;
+  background-color: rgba(255, 255, 255, 0.281);
+  margin-top: 50px;
   padding: 20px;
   width: 100%;
+}
+
+img {
+  width: 200px;
+  height:300px
+  object-fit: content
 }
 
 hr {
