@@ -1,5 +1,6 @@
 var buttons = document.querySelector("#buttons");
 var button1 = document.querySelector("#button1");
+var image1 = document.getElementById("player-hand");
 
 var button2 = document.createElement("button");
 button2.id = "button2";
@@ -112,6 +113,7 @@ var shuffleCards = function (cardDeck) {
 var draw = function () {
   for (var i = 0; i < 2; i += 1) {
     playerHand.push(shuffleCards(cardDeck).pop());
+    image1.src = "10_of_clubs.png";
     comHand.push(shuffleCards(cardDeck).pop());
   }
 
