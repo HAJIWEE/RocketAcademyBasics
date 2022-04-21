@@ -1,6 +1,13 @@
 var buttons = document.querySelector("#buttons");
 var button1 = document.querySelector("#button1");
-var image1 = document.getElementById("player-hand");
+
+var drawn = document.getElementById("hitcards");
+drawn.style.overflow = "hidden";
+
+var image1 = document.getElementById("player-hand1");
+var image2 = document.getElementById("player-hand2");
+var image3 = document.getElementById("comhand1");
+var image4 = document.getElementById("comhand2");
 
 var button2 = document.createElement("button");
 button2.id = "button2";
@@ -34,15 +41,6 @@ var mode = 0;
 var playerRank = 0;
 var comRank = 0;
 var running = false;
-
-var end = function () {
-  playerHand = [];
-  comHand = [];
-  button1.innerText = "Start";
-  buttons.removeChild(button2);
-  mode = 0;
-  return;
-};
 
 var run = function () {
   buttons.removeChild(button3);
@@ -113,7 +111,6 @@ var shuffleCards = function (cardDeck) {
 var draw = function () {
   for (var i = 0; i < 2; i += 1) {
     playerHand.push(shuffleCards(cardDeck).pop());
-    image1.src = "10_of_clubs.png";
     comHand.push(shuffleCards(cardDeck).pop());
   }
 
@@ -122,13 +119,15 @@ var draw = function () {
 
   if (playerRank === 21 && comRank !== 21) {
     end();
-    return "</br>BLACK JACK. Player wins";
+    return "BLACK JACK. Player wins";
   } else if (comRank === 21 && playerRank !== 21) {
     end();
-    return ` & ${comHand[1].name} of ${comHand[1].suit}</br>BLACK JACK. computer wins`;
+    var card4 = `./PNG-cards-1.3/${comHand[1].name}_of_${comHand[1].suit}.png`;
+    image4.src = card4;
+    return `BLACK JACK. computer wins`;
   } else if (comRank === 21 && playerRank === 21) {
     end();
-    return ` & ${comHand[1].name} of ${comHand[1].suit}</br>BLACK JACKs. its a TIE!`;
+    return ` & ${comHand[1].name} of ${comHand[1].suit}BLACK JACKs. its a TIE!`;
   }
 
   while (comRank < 17) {
@@ -136,7 +135,9 @@ var draw = function () {
     comRank = checkRankAce(comHand);
   }
 
-  return "</br>Click Hit to draw card or Stand to end turn";
+  showhand();
+
+  return "Click Hit to draw card or Stand to end turn";
 };
 
 var checkRankAce = function (input) {
@@ -167,49 +168,36 @@ var winningCondition = function (input) {
     winlose = true;
     if (comRank > 21 && playerRank > 21) {
       //both explode
-      myOutputValue += "</br>Both lose, ";
+      myOutputValue += "Both lose, ";
     } else if (comRank > 21 && playerRank <= 21) {
       //banker explode
-      myOutputValue += `</br>Player WINS,</br>Computer's hand: ${comHand[0].name} of ${comHand[0].suit}`;
-      for (var f = 1; f < comHand.length; f += 1) {
-        myOutputValue += `& ${comHand[f].name} of ${comHand[f].suit}`;
-      }
-      myOutputValue += `</br>`;
+      myOutputValue += `Player WINS`;
     } else if (playerRank > 21 && comRank <= 21) {
       //player explode
-      myOutputValue += "</br>Player loses, ";
+      myOutputValue += "Player loses, ";
     } else if (comRank > playerRank) {
       //banker nearer to 21
-      myOutputValue += `</br>Player loses,</br>Computer's hand: ${comHand[0].name} of ${comHand[0].suit}`;
-      for (var f = 1; f < comHand.length; f += 1) {
-        myOutputValue += `& ${comHand[f].name} of ${comHand[f].suit}`;
-      }
+      myOutputValue += `Player loses`;
     } else if (comRank === playerRank) {
       //equal but never explode
-      myOutputValue += `</br>Its a TIE,</br>Computer's hand: ${comHand[0].name} of ${comHand[0].suit}`;
-      for (var f = 1; f < comHand.length; f += 1) {
-        myOutputValue += `& ${comHand[f].name} of ${comHand[f].suit}`;
-      }
+      myOutputValue += `Its a TIE`;
     } else if (comRank < playerRank) {
       //player nearer to 21
-      myOutputValue += `</br>Player WINS,</br>Computer's hand: ${comHand[0].name} of ${comHand[0].suit}`;
-      for (var f = 1; f < comHand.length; f += 1) {
-        myOutputValue += `& ${comHand[f].name} of ${comHand[f].suit}`;
-      }
+      myOutputValue += `Player WINS`;
     }
   } else if (input === "hit") {
     if (playerRank === 21 && comRank !== 21) {
       //player wins
       winlose = true;
-      myOutputValue = "</br>21! Player wins";
+      myOutputValue = "21! Player wins";
     } else if (playerRank > 21 && comRank <= 21) {
       //player explode
       winlose = true;
-      myOutputValue += "</br>Player loses";
+      myOutputValue = "Player loses";
     } else if (comRank > 21 && playerRank > 21) {
       //both explode
       winlose = true;
-      myOutputValue += "</br>Both lose";
+      myOutputValue += "Both lose";
     }
   }
   if (winlose === true) {
@@ -222,30 +210,51 @@ var hit = function () {
   var myOutputValue = "";
 
   if (mode === 0) {
+    image4.src = "./PNG-cards-1.3/backdeafault.png";
+    while (drawn.lastChild) {
+      drawn.removeChild(drawn.lastChild);
+    }
     button1.innerText = "Hit";
     mode = 1;
     var result1 = draw();
-    myOutputValue =
-      `Player's hand: ${playerHand[0].name} of ${playerHand[0].suit} & ${playerHand[1].name} of ${playerHand[1].suit}.
-      </br>Computer's hand: HIDDEN & ${comHand[0].name} of ${comHand[0].suit}` +
-      result1;
+    myOutputValue = result1;
     buttons.appendChild(button2);
     if (playerRank === 16) {
       buttons.appendChild(button3);
       running = true;
     }
   } else if (mode === 1) {
+    while (drawn.lastChild) {
+      drawn.removeChild(drawn.lastChild);
+    }
     if (running === true) {
       buttons.removeChild(button3);
       running = false;
     }
     playerHand.push(shuffleCards(cardDeck).pop());
     playerRank = checkRankAce(playerHand);
-    myOutputValue = `Player's hand: ${playerHand[0].name} of ${playerHand[0].suit} & ${playerHand[1].name} of ${playerHand[1].suit}`;
-    for (var n = 2; n < playerHand.length; n += 1) {
-      myOutputValue += ` & ${playerHand[n].name} of ${playerHand[n].suit}`;
+    for (var i = 2; i < playerHand.length; i += 1) {
+      var newlist = document.createElement("li");
+      newlist.id = `hitlist_${i}`;
+      newlist.class = "comleft";
+      newlist.style.overflow = "hidden";
+      var image5 = document.createElement("img");
+      image5.alt = "poker card";
+      image5.style.width = "100px";
+      image5.style.height = "145px";
+      var currentCard = playerHand[i];
+      var cardnew =
+        "./PNG-cards-1.3/" +
+        currentCard.name +
+        "_of_" +
+        currentCard.suit +
+        ".png";
+      image5.src = cardnew;
+      newlist.appendChild(image5);
+      drawn.appendChild(newlist);
     }
-    myOutputValue += winningCondition("hit");
+    console.log(playerRank);
+    myOutputValue = winningCondition("hit");
   }
   return myOutputValue;
 };
@@ -254,17 +263,14 @@ var stand = function (input) {
   var myOutputValue = "";
 
   if (mode === 0) {
+    image4.src = "./PNG-cards-1.3/backdeafault.png";
+    while (drawn.lastChild) {
+      drawn.removeChild(drawn.lastChild);
+    }
     mode = 1;
     var result1 = draw();
-    myOutputValue =
-      `Player's hand: ${playerHand[0].name} of ${playerHand[0].suit} & ${playerHand[1].name} of ${playerHand[1].suit}.
-      </br>Computer's hand: HIDDEN & ${comHand[0].name} of ${comHand[0].suit}` +
-      result1;
+    myOutputValue = result1;
   } else if (mode === 1) {
-    myOutputValue = `Player's hand: ${playerHand[0].name} of ${playerHand[0].suit} & ${playerHand[1].name} of ${playerHand[1].suit}`;
-    for (var n = 2; n < playerHand.length; n += 1) {
-      myOutputValue += ` & ${playerHand[n].name} of ${playerHand[n].suit}`;
-    }
     if (playerRank >= 16) {
       myOutputValue += winningCondition("stand");
     } else if (playerRank < 16) {
@@ -272,4 +278,45 @@ var stand = function (input) {
     }
   }
   return myOutputValue;
+};
+
+var showhand = function () {
+  var card1 = `./PNG-cards-1.3/${playerHand[0].name}_of_${playerHand[0].suit}.png`;
+  var card2 = `./PNG-cards-1.3/${playerHand[1].name}_of_${playerHand[1].suit}.png`;
+  var card3 = `./PNG-cards-1.3/${comHand[0].name}_of_${comHand[0].suit}.png`;
+  image1.src = card1;
+  image2.src = card2;
+  image3.src = card3;
+  return;
+};
+
+var end = function () {
+  var card = `./PNG-cards-1.3/${comHand[1].name}_of_${comHand[1].suit}.png`;
+  image4.src = card;
+  for (var i = 2; i < comHand.length; i += 1) {
+    var newlist = document.createElement("li");
+    newlist.id = `hitlist_${i}`;
+    newlist.style.float = "right";
+    newlist.style.overflow = "hidden";
+    var image5 = document.createElement("img");
+    image5.alt = "poker card";
+    image5.style.width = "100px";
+    image5.style.height = "145px";
+    var currentCard = comHand[i];
+    var cardnew =
+      "./PNG-cards-1.3/" +
+      currentCard.name +
+      "_of_" +
+      currentCard.suit +
+      ".png";
+    image5.src = cardnew;
+    newlist.appendChild(image5);
+    drawn.appendChild(newlist);
+  }
+  playerHand = [];
+  comHand = [];
+  button1.innerText = "Start";
+  buttons.removeChild(button2);
+  mode = 0;
+  return;
 };
