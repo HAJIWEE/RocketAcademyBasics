@@ -17,7 +17,7 @@ body {
 
 ul li.comleft {
   list-style-type: none;
-  padding: 0;
+  padding-right: 0px;
   overflow: hidden;
   float: left;
   font-size: 30px;
@@ -29,7 +29,7 @@ ul li.com {
   color: #fff;
   list-style-type: none;
   float: right;
-  margin-right: 50px;
+  margin-right: 30px;
 }
 
 nav {
@@ -67,6 +67,14 @@ nav ul li a {
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+}
+
+#com-handtitle{
+  font-size: 30px;
+  color: #fff;
+  list-style-type: none;
+  float: right;
+  margin-right: 50px;
 }
 
 #header {
