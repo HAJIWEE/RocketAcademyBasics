@@ -32,19 +32,20 @@ var playerHand = [];
 var mode = 0;
 var playerRank = 0;
 var comRank = 0;
+var running = false;
 
 var end = function () {
   playerHand = [];
   comHand = [];
   button1.innerText = "Start";
   buttons.removeChild(button2);
-
   mode = 0;
+  return;
 };
 
 var run = function () {
-  end();
   buttons.removeChild(button3);
+  end();
   return "Player Runs";
 };
 
@@ -229,9 +230,13 @@ var hit = function () {
     buttons.appendChild(button2);
     if (playerRank === 16) {
       buttons.appendChild(button3);
+      running = true;
     }
   } else if (mode === 1) {
-    console.log(mode);
+    if (running === true) {
+      buttons.removeChild(button3);
+      running = false;
+    }
     playerHand.push(shuffleCards(cardDeck).pop());
     playerRank = checkRankAce(playerHand);
     myOutputValue = `Player's hand: ${playerHand[0].name} of ${playerHand[0].suit} & ${playerHand[1].name} of ${playerHand[1].suit}`;
@@ -240,7 +245,6 @@ var hit = function () {
     }
     myOutputValue += winningCondition("hit");
   }
-
   return myOutputValue;
 };
 
