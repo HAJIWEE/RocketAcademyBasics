@@ -21,13 +21,15 @@ ul li.comleft {
   overflow: hidden;
   float: left;
   font-size: 30px;
+  color: #fff;
 }
 
 ul li.com {
   font-size: 30px;
+  color: #fff;
   list-style-type: none;
   float: right;
-  margin-right: 50px 
+  margin-right: 50px;
 }
 
 nav {
@@ -113,11 +115,7 @@ button {
   width: 100%;
 }
 
-img {
-  width: 200px;
-  height:300px
-  object-fit: content
-}
+
 
 hr {
   margin-top: 2em;

@@ -53,7 +53,7 @@ var run = function () {
 var createDeck = function () {
   // Create non-shuffled deck
   var cardDeck = [];
-  var suits = ["♣️", "♦️", "❤️", "♠️"];
+  var suits = ["clubs", "diamonds", "hearts", "spades"];
 
   for (var i = 0; i < suits.length; i += 1) {
     var currentSuit = suits[i];
