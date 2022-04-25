@@ -1,3 +1,4 @@
+//DOM declarations
 var buttons = document.querySelector("#buttons");
 var button1 = document.querySelector("#button1");
 
