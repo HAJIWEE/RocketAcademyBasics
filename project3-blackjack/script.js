@@ -221,15 +221,10 @@ var hit = function () {
     buttons.appendChild(button2);
     if (playerRank === 16) {
       buttons.appendChild(button3);
-      running = true;
     }
   } else if (mode === 1) {
     while (drawn.lastChild) {
       drawn.removeChild(drawn.lastChild);
-    }
-    if (running === true) {
-      buttons.removeChild(button3);
-      running = false;
     }
     playerHand.push(shuffleCards(cardDeck).pop());
     playerRank = checkRankAce(playerHand);
@@ -274,7 +269,6 @@ var stand = function (input) {
     buttons.appendChild(button2);
     if (playerRank === 16) {
       buttons.appendChild(button3);
-      running = true;
     }
   } else if (mode === 1) {
     if (playerRank >= 16) {
