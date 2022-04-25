@@ -267,14 +267,40 @@ var stand = function (input) {
     while (drawn.lastChild) {
       drawn.removeChild(drawn.lastChild);
     }
+    button1.innerText = "Hit";
     mode = 1;
     var result1 = draw();
     myOutputValue = result1;
+    buttons.appendChild(button2);
+    if (playerRank === 16) {
+      buttons.appendChild(button3);
+      running = true;
+    }
   } else if (mode === 1) {
     if (playerRank >= 16) {
       myOutputValue += winningCondition("stand");
     } else if (playerRank < 16) {
       myOutputValue = `card value too low please draw`;
+    }
+    for (var i = 2; i < playerHand.length; i += 1) {
+      var newlist = document.createElement("li");
+      newlist.id = `hitlist_${i}`;
+      newlist.class = "comleft";
+      newlist.style.overflow = "hidden";
+      var image5 = document.createElement("img");
+      image5.alt = "poker card";
+      image5.style.width = "100px";
+      image5.style.height = "145px";
+      var currentCard = playerHand[i];
+      var cardnew =
+        "./PNG-cards-1.3/" +
+        currentCard.name +
+        "_of_" +
+        currentCard.suit +
+        ".png";
+      image5.src = cardnew;
+      newlist.appendChild(image5);
+      drawn.appendChild(newlist);
     }
   }
   return myOutputValue;
